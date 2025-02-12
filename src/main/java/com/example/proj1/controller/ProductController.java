@@ -4,7 +4,10 @@ package com.example.proj1.controller;
 import com.example.proj1.model.Product;
 import com.example.proj1.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,9 +27,17 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public List<Product> getAllProducts(){
+    public ResponseEntity<List<Product>> getAllProducts(){
 
-        return Service.getAllProducts();
+        return new ResponseEntity<>(Service.getAllProducts(), HttpStatus.OK);
+
+    }
+
+    @GetMapping("/{id}")
+    public List<Product> getByProductID(@PathVariable int Id){
+
+        return Service.getByProductID(int id);
+
 
     }
 }
